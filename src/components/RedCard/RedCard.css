@@ -1,0 +1,35 @@
+.card {
+  perspective: 1000px;
+  width: 100%;
+  height: 100%;
+}
+.card-inner {
+  transition: transform 0.5s; /* Apply transition to transform property */
+  transform-style: preserve-3d; /* Ensure proper 3D rendering */
+  width: 100%;
+  height: 100%;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg); /* Rotate the card when flipped */
+  height: 100%;
+  width: 100%;
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  backface-visibility: hidden; /* Hide the back face of the card */
+  width: 100%;
+  height: 100%;
+}
+
+.card-front {
+}
+
+.card-back {
+  width: 100%;
+  height: 100%;
+  background-color: aqua;
+  transform: rotateY(180deg); /* Initially hide the back face of the card */
+}
