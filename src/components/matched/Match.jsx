@@ -8,17 +8,17 @@ export default function Match({ leftCard, rightCard, setMatched }) {
     return (
         <div className='w-full h-full flex justify-center items-center'>
             <div className='flex flex-row'>
-                <div className='h-fit w-[130px] mr-5 rotate-30'>
+                <div className='h-fit w-[250px] mr-5 rotate-30'>
                     <img className=' transform rotate-30' src={leftCard.back} style={{
                         transform: 'rotate(-20deg)'
                     }} />
                 </div>
-                <div className='h-fit w-[130px] ml-5 relative top-[50px]' style={{
+                <div className='h-fit w-[180px] ml-5 relative top-[50px]' style={{
                     transform: 'rotate(20deg)'
                 }}>
                     <img src={rightCard.back} />
                 </div>
-                <div className='absolute text-6xl text-white top-[30%] left-[60%]'>
+                <div className='absolute text-6xl text-white top-[25%] left-[60%]'>
                     <h2 style={{
 
                         width: '723px',
