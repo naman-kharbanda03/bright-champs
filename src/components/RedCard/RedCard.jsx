@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./RedCard.css"
 
-export default function RedCard({ back, front, id, isFlipped, setRightCardOpt, setRightCards }) {
+export default function RedCard({ back, front, id, isFlipped, setRightCardOpt, setRightCards, disableButton }) {
     const [Flip, setFlip] = useState(false);
     const [flipButton, setFlipButton] = useState(false);
     const [ID, setID] = useState(id);
@@ -10,14 +10,18 @@ export default function RedCard({ back, front, id, isFlipped, setRightCardOpt, s
         setFlip(isFlipped);
     }, [isFlipped])
 
+    useEffect(() => {
+        setFlipButton(disableButton);
+    }, [disableButton])
 
-    const handleFlip = (ID) => {
+    const handleFlip = (ID, back) => {
         setFlip(prev => !prev);
         setTimeout(() => {
             setRightCardOpt(prev => ({
                 ...prev,
                 id: ID,
-                isFlipped: true
+                isFlipped: true,
+                back: back
             }))
             setRightCards(prev => {
                 const updatedCards = prev.map(card => {
@@ -38,7 +42,7 @@ export default function RedCard({ back, front, id, isFlipped, setRightCardOpt, s
             <div className='h-fit w-[130px]'>
                 <button
                     className={`card ${Flip ? 'flipped' : ''} pointer`}
-                    onClick={() => handleFlip(id)}
+                    onClick={() => handleFlip(id, back)}
                     disabled={flipButton}
                 >
                     <div className='card-inner '>

@@ -15,12 +15,13 @@ export default function BlueCard({ back, front, id, isFlipped, setLeftCardOpt, d
         setFlipButton(disableButton);
     }, [disableButton])
 
-    const handleFlip = (ID) => {
+    const handleFlip = (ID, back) => {
         // setFlip(prev => !prev)
         setLeftCardOpt(prev => ({
             ...prev,
             id: ID,
-            isFlipped: true
+            isFlipped: true,
+            back: back
         }))
         setLeftCards(prev => {
             const updatedCards = prev.map(card => {
@@ -39,7 +40,7 @@ export default function BlueCard({ back, front, id, isFlipped, setLeftCardOpt, d
             <div className='h-fit w-[130px]'>
                 <button
                     className={`card ${Flip ? 'flipped' : ''} pointer`}
-                    onClick={() => handleFlip(id)}
+                    onClick={() => handleFlip(id, back)}
                     disabled={flipButton}
                 >
                     <div className='card-inner '>

@@ -1,10 +1,31 @@
 import React, { useEffect, useState } from 'react'
 import BlueCard from '../components/BlueCard/BlueCard'
 import RedCard from '../components/RedCard/RedCard'
+
 import back from "../assests/images/Apple.png"
+import orange2 from "../assests/images/orange2.png"
+import grape from "../assests/images/grapes.png"
+import water from "../assests/images/watermelon.png"
+import banana from "../assests/images/banana.png"
+import guava from "../assests/images/guava.png"
+import straw from "../assests/images/strawberry.png"
+import mango from "../assests/images/Mango.png"
+
 import right from "../assests/images/A.png"
+import o from "../assests/images/o.png"
+import g from "../assests/images/G.png"
+import w from "../assests/images/W.png"
+import b from "../assests/images/B.png"
+import gu from "../assests/images/GU.png"
+import s from "../assests/images/S.png"
+import m from "../assests/images/M.png"
+
+
+
+
 import frontLeft from "../assests/images/blue.png"
 import frontRight from "../assests/images/Red.png"
+import Match from '../components/matched/Match'
 
 
 
@@ -14,89 +35,101 @@ export const leftData = [
         back: back,
         isFlipped: false,
     }, {
-        id: 2,
-        back: back,
+        id: 6,
+        back: guava,
         isFlipped: false,
     }, {
-        id: 3,
-        back: back,
+        id: 2,
+        back: mango,
+        isFlipped: false,
+    }, {
+        back: banana,
+        id: 8,
         isFlipped: false,
     }, {
         id: 4,
-        back: back,
+        back: straw,
         isFlipped: false,
     }, {
         id: 5,
-        back: back,
+        back: water,
         isFlipped: false,
     }, {
-        id: 6,
-        back: back,
+        id: 3,
+        back: orange2,
         isFlipped: false,
     }, {
         id: 7,
-        back: back,
+        back: grape,
         isFlipped: false,
-    }, {
-        back: back,
-        id: 8,
-        isFlipped: false,
-    },]
+    }, ,]
 export const rightData = [
+    {
+        id: 2,
+        back: m,
+        isFlipped: false,
+    },
     {
         id: 1,
         back: right,
         isFlipped: false,
     }, {
-        id: 2,
-        back: right,
-        isFlipped: false,
-    }, {
         id: 3,
-        back: right,
+        back: o,
         isFlipped: false,
-    }, {
-        id: 4,
-        back: right,
-        isFlipped: false,
-    }, {
-        id: 5,
-        back: right,
-        isFlipped: false,
-    }, {
+    },
+    {
         id: 6,
-        back: right,
-        isFlipped: false,
-    }, {
-        id: 7,
-        back: right,
+        back: gu,
         isFlipped: false,
     }, {
         id: 8,
-        back: right,
+        back: b,
+        isFlipped: false,
+    }, {
+        id: 4,
+        back: s,
+        isFlipped: false,
+    }, {
+        id: 5,
+        back: w,
+        isFlipped: false,
+    }, {
+        id: 7,
+        back: g,
         isFlipped: false,
     },]
 export default function Activity({ nextKey }) {
     const [tries, setTries] = useState(4);
     const [leftCardOpt, setLeftCardOpt] = useState({
         id: null,
-        isFlipped: false
+        isFlipped: false,
+        back: ''
     });
     const [rightCardOpt, setRightCardOpt] = useState({
         id: null,
-        isFlipped: false
+        isFlipped: false,
+        back: '',
     });
     const [leftCards, setLeftCards] = useState(leftData);
     const [rightCards, setRightCards] = useState(rightData);
 
     const [disableLeftButtons, setDisableLeftButtons] = useState(false);
+    const [disableRightButtons, setDisableRightButtons] = useState(true);
+
     const [bananas, setBananas] = useState(0);
+    const [matched, setMatched] = useState({
+        leftCard: {},
+        rightCard: {},
+        matched: false,
+    });
 
     useEffect(() => {
 
         if (leftCardOpt.isFlipped) {
             //disable left buttons
             setDisableLeftButtons(true);
+            setDisableRightButtons(false);
         }
         if (leftCardOpt.isFlipped && rightCardOpt.isFlipped) {
             if (leftCardOpt.id === rightCardOpt.id) {
@@ -127,8 +160,15 @@ export default function Activity({ nextKey }) {
                     isFlipped: false
                 });
                 setBananas(prev => prev + 1);
-                alert('matched');
+                setMatched(prev => ({
+                    ...prev,
+                    leftCard: leftCardOpt,
+                    rightCard: rightCardOpt,
+                    matched: true
+                }));
                 setDisableLeftButtons(false);
+                setDisableRightButtons(true);
+
             } else {
                 reset();
             }
@@ -138,9 +178,13 @@ export default function Activity({ nextKey }) {
     }, [leftCardOpt, rightCardOpt])
 
     useEffect(() => {
+        let Id;
         if (tries === 0) {
-            nextKey(bananas);
+            Id = setTimeout(() => {
+                nextKey(bananas);
+            }, 1000)
         }
+        return () => clearTimeout(Id);
     }, [tries])
 
     function reset() {
@@ -173,12 +217,14 @@ export default function Activity({ nextKey }) {
             return updatedCards;
         });
         setDisableLeftButtons(false);
+        setDisableRightButtons(true);
+
     }
     useEffect(() => console.log(leftCards), [leftCards])
     return (
-        <div className='flex flex-col justify-center items-center h-full' >
-            <div className='flex flex row gap-x-24 h-[400px]'>
-                <div className='grid grid-cols-4 gap-2'>
+        <div className={`flex flex-col justify-center items-center h-full z-1 `} >
+            <div className='flex flex row gap-x-24 h-[400px] z-0'>
+                <div className='grid grid-cols-4 gap-2' >
                     {leftCards?.map(card => (
                         <BlueCard className='col-span-1'
                             back={card?.back}
@@ -201,6 +247,7 @@ export default function Activity({ nextKey }) {
                             id={card.id}
                             isFlipped={card.isFlipped}
 
+                            disableButton={disableRightButtons}
                             setRightCardOpt={setRightCardOpt}
 
                             setRightCards={setRightCards}
@@ -209,7 +256,9 @@ export default function Activity({ nextKey }) {
 
                 </div>
             </div>
-
-        </div>
+            <div className={` ${matched.matched ? 'bg-black bg-opacity-50 h-full w-full z-10 absolute' : 'hidden'} `}>
+                <Match leftCard={matched.leftCard} rightCard={matched.rightCard} setMatched={setMatched} />
+            </div>
+        </div >
     )
 }

@@ -14,7 +14,7 @@ import next from "./assests/images/next.png";
 import yes from "./assests/images/yes.png";
 
 function App() {
-  const [keyState, setKeyState] = useState(2);
+  const [keyState, setKeyState] = useState(1);
   const [ans, setAns] = useState(0);
   let screen;
   const nextKey = (bananas) => {
@@ -24,8 +24,11 @@ function App() {
   const handleKey = () => {
     setKeyState((prev) => prev - 1);
   };
+  const resetKey = () => {
+    setKeyState(1);
+  };
   switch (keyState) {
-    case 2:
+    case 1:
       screen = (
         <Introduction
           button={start}
@@ -34,16 +37,16 @@ function App() {
         />
       );
       break;
-    case 3:
+    case 2:
       screen = (
-        <Instruction
+        <Introduction
           button={next}
           message={"Hi ,I am Mizo! and I love bananas"}
           nextKey={nextKey}
         />
       );
       break;
-    case 4:
+    case 3:
       screen = (
         <Introduction
           button={yes}
@@ -59,7 +62,7 @@ function App() {
       screen = <Activity nextKey={nextKey} />;
       break;
     case 6:
-      screen = <Result ans={ans} />;
+      screen = <Result ans={ans} resetKey={resetKey} />;
       break;
     default:
       screen = null;
