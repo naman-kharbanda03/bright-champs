@@ -116,6 +116,7 @@ export default function Activity({ nextKey }) {
 
     const [disableLeftButtons, setDisableLeftButtons] = useState(false);
     const [disableRightButtons, setDisableRightButtons] = useState(true);
+    const [firstLeftClick, setLeftFirstClick] = useState(false)
 
     const [bananas, setBananas] = useState(0);
     const [matched, setMatched] = useState({
@@ -234,6 +235,7 @@ export default function Activity({ nextKey }) {
 
                             setLeftCardOpt={setLeftCardOpt}
                             disableButton={disableLeftButtons}
+                            setLeftFirstClick={setLeftFirstClick}
 
                             setLeftCards={setLeftCards}
                         />
@@ -250,6 +252,7 @@ export default function Activity({ nextKey }) {
                             disableButton={disableRightButtons}
                             setRightCardOpt={setRightCardOpt}
                             disableLeftButton={disableLeftButtons}
+                            firstLeftClick={firstLeftClick}
 
                             setRightCards={setRightCards}
                         />

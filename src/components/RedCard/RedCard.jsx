@@ -3,7 +3,7 @@ import "./RedCard.css"
 import downArrow from "../../assests/images/upArrow.png"
 import msg from "../../assests/images/msg.png";
 
-export default function RedCard({ back, front, id, isFlipped, setRightCardOpt, setRightCards, disableButton, disableLeftButton }) {
+export default function RedCard({ back, front, id, isFlipped, setRightCardOpt, setRightCards, disableButton, disableLeftButton, firstLeftClick }) {
     const [Flip, setFlip] = useState(false);
     const [flipButton, setFlipButton] = useState(false);
     const [ID, setID] = useState(id);
@@ -44,7 +44,7 @@ export default function RedCard({ back, front, id, isFlipped, setRightCardOpt, s
     return (
         <div>
             <div className='h-fit w-[130px]'>
-                {(id === 8 && !firstClick && disableLeftButton)
+                {(id === 8 && !firstClick && firstLeftClick)
                     ? <div className='relative'>
                         <img src={downArrow} className='absolute top-[180px] right-[-90px]' />
                         <img className='absolute top-[180px] left-[-100px] ' src={msg} />

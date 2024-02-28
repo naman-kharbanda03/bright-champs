@@ -3,7 +3,7 @@ import "./BlueCard.css"
 import downArrow from "../../assests/images/downArrow.png"
 import msg from "../../assests/images/msg.png";
 
-export default function BlueCard({ back, front, id, isFlipped, setLeftCardOpt, disableButton, setLeftCards }) {
+export default function BlueCard({ back, front, id, isFlipped, setLeftCardOpt, disableButton, setLeftCards, setLeftFirstClick }) {
     const [Flip, setFlip] = useState(false);
     const [flipButton, setFlipButton] = useState(false);
     const [ID, setID] = useState(id);
@@ -19,6 +19,9 @@ export default function BlueCard({ back, front, id, isFlipped, setLeftCardOpt, d
     }, [disableButton])
 
     const handleFlip = (ID, back) => {
+        if (ID === 8) {
+            setLeftFirstClick(true);
+        }
         // setFlip(prev => !prev)
         setFirstClick(true);
         setLeftCardOpt(prev => ({
