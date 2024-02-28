@@ -249,6 +249,7 @@ export default function Activity({ nextKey }) {
 
                             disableButton={disableRightButtons}
                             setRightCardOpt={setRightCardOpt}
+                            disableLeftButton={disableLeftButtons}
 
                             setRightCards={setRightCards}
                         />
