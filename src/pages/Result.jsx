@@ -13,7 +13,11 @@ export default function Result({ ans, resetKey }) {
 
                 <img className='absolute w-[50%] top-[40%] left-[26%]' src={monkey} />
                 <div className='absolute text-center text-[white] w-[10%] h-[10%] bg-[#fd9c3b] top-[25%] left-[15%] rounded-[15px] flex flex-col justify-center'>
-                    <h2 className='text-4xl'>{ans}</h2>
+                    <h2 className='text-5xl' style={{
+                        fontFamily: 'Nunito',
+                        fontStyle: 'normal',
+                        fontWeight: '800',
+                    }}>{ans}</h2>
                 </div>
                 <button className='pointer h-[10%] absolute w-[70%] top-[74%] left-[15%]' onClick={() => resetKey()}>
                 </button>
